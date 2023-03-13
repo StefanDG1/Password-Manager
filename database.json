@@ -1,0 +1,122 @@
+[
+    {
+      "id": 1,
+      "title": "Netflix",
+      "username": "Stefan123",
+      "email": "stefan@gmail.com",
+      "website": "www.netflix.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 2,
+      "title": "Google",
+      "username": "Dragos321",
+      "email": "dragos@hotmail.com",
+      "website": "accounts.google.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 3,
+      "title": "YouTube",
+      "username": "Prostul123",
+      "email": "john@google.be",
+      "website": "www.youtube.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 4,
+      "title": "Netflix",
+      "username": "Stefan123",
+      "email": "stefan@gmail.com",
+      "website": "www.netflix.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 5,
+      "title": "Google",
+      "username": "Dragos321",
+      "email": "dragos@hotmail.com",
+      "website": "accounts.google.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 6,
+      "title": "YouTube",
+      "username": "Prostul123",
+      "email": "john@google.be",
+      "website": "www.youtube.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 7,
+      "title": "Netflix",
+      "username": "Stefan123",
+      "email": "stefan@gmail.com",
+      "website": "www.netflix.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 8,
+      "title": "Google",
+      "username": "Dragos321",
+      "email": "dragos@hotmail.com",
+      "website": "accounts.google.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 9,
+      "title": "YouTube",
+      "username": "Prostul123",
+      "email": "john@google.be",
+      "website": "www.youtube.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 10,
+      "title": "Netflix",
+      "username": "Stefan123",
+      "email": "stefan@gmail.com",
+      "website": "www.netflix.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 11,
+      "title": "Google",
+      "username": "Dragos321",
+      "email": "dragos@hotmail.com",
+      "website": "accounts.google.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    },
+    {
+      "id": 12,
+      "title": "YouTube",
+      "username": "Prostul123",
+      "email": "john@google.be",
+      "website": "www.youtube.com",
+      "notes": "",
+      "icon": "",
+      "group": ""
+    }
+]

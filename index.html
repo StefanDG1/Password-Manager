@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Test app</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="left"></div>
+        <div class="right">
+            <div class="top-bar">
+                <div class="new-item-wrapper">
+                    <!-- LINK SHOULD POINT TO NEW .html page to add user info  -->
+                    <a class="new-item" href="./newItem.html" target="_blank"><span class="plus">+</span> New Item</a>
+                </div>
+                <div class="search-wrapper">
+                    <input type="search" name="search" id="search" placeholder="Search" spellcheck="false" search-box>
+                </div>
+            </div>
+            <div class="content">
+                <div class="user-cards" user-cards-container>
+
+                <!-- EXAMPLE OF CARD
+                    <div class="card" onclick="selected(this)">
+                        <div><img src="./netflix-logo-png-11593869496jqso5gxgsy.png" alt="Netflix" class="card-icon"></div>
+                        <div class="card-text">
+                            <div class="card-title">Netflix</div>
+                            <div class="card-email"><span>stefan@gmail.com</span></div>
+                        </div>
+                    </div>
+                -->
+                
+                    <template card-template>
+                        <div class="card" onclick="selected(this)">
+                            <div><img src="./images/netflix-logo-png-11593869496jqso5gxgsy.png" alt="Netflix" class="card-icon"></div>
+                            <div class="card-text">
+                                <div class="card-title" card-title></div>
+                                <div class="card-email"><span card-email></span></div>
+                            </div>
+                        </div>
+                    </template>       
+                </div>
+
+                <div class="user-info-container" onclick="infoSelected(this)">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
