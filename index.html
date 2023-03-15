@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Test app</title>
+    <title>MiniPass</title>
 </head>
 
 <body>
@@ -36,8 +36,8 @@
                 -->
                 
                     <template card-template>
-                        <div class="card" onclick="selected(this)">
-                            <div><img src="./images/netflix-logo-png-11593869496jqso5gxgsy.png" alt="Netflix" class="card-icon"></div>
+                        <div class="card" onclick="selected(this)" identifier="">
+                            <div><img class="card-icon" card-icon></div>
                             <div class="card-text">
                                 <div class="card-title" card-title></div>
                                 <div class="card-email"><span card-email></span></div>
@@ -45,9 +45,18 @@
                         </div>
                     </template>       
                 </div>
-
-                <div class="user-info-container" onclick="infoSelected(this)">
-
+                <div class="info-container">
+                    <div class="info-icon"><img class="info-icon-pic"></div>
+                    <div class="info-title"></div>
+                    <div class="info-website"></div>
+                    <div class="info-username"></div>
+                    <div class="info-email"></div>
+                    <div class="info-password"></div>
+                    <div class="info-group"></div>
+                    <div class="info-notes"></div>
+                    <div onclick="closeInfo()">
+                        <span class="close-button" aria-hidden="true">&times;</span>
+                    </div>
                 </div>
 
             </div>

@@ -4,19 +4,21 @@
       "title": "Netflix",
       "username": "Stefan123",
       "email": "stefan@gmail.com",
+      "password": "password123",
       "website": "www.netflix.com",
-      "notes": "",
-      "icon": "",
-      "group": ""
+      "notes": "random notes here",
+      "icon": "./images/netflix.png",
+      "group": "Streaming services"
     },
     {
       "id": 2,
       "title": "Google",
       "username": "Dragos321",
       "email": "dragos@hotmail.com",
+      "password": "password123",
       "website": "accounts.google.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/google.jpg",
       "group": ""
     },
     {
@@ -24,9 +26,10 @@
       "title": "YouTube",
       "username": "Prostul123",
       "email": "john@google.be",
+      "password": "password123",
       "website": "www.youtube.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/youtube.png",
       "group": ""
     },
     {
@@ -34,9 +37,10 @@
       "title": "Netflix",
       "username": "Stefan123",
       "email": "stefan@gmail.com",
+      "password": "password123",
       "website": "www.netflix.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/netflix.png",
       "group": ""
     },
     {
@@ -44,9 +48,10 @@
       "title": "Google",
       "username": "Dragos321",
       "email": "dragos@hotmail.com",
+      "password": "password123",
       "website": "accounts.google.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/google.jpg",
       "group": ""
     },
     {
@@ -54,9 +59,10 @@
       "title": "YouTube",
       "username": "Prostul123",
       "email": "john@google.be",
+      "password": "password123",
       "website": "www.youtube.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/youtube.png",
       "group": ""
     },
     {
@@ -64,9 +70,10 @@
       "title": "Netflix",
       "username": "Stefan123",
       "email": "stefan@gmail.com",
+      "password": "password123",
       "website": "www.netflix.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/netflix.png",
       "group": ""
     },
     {
@@ -76,7 +83,7 @@
       "email": "dragos@hotmail.com",
       "website": "accounts.google.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/google.jpg",
       "group": ""
     },
     {
@@ -84,9 +91,10 @@
       "title": "YouTube",
       "username": "Prostul123",
       "email": "john@google.be",
+      "password": "password123",
       "website": "www.youtube.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/youtube.png",
       "group": ""
     },
     {
@@ -94,9 +102,10 @@
       "title": "Netflix",
       "username": "Stefan123",
       "email": "stefan@gmail.com",
+      "password": "password123",
       "website": "www.netflix.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/netflix.png",
       "group": ""
     },
     {
@@ -104,9 +113,10 @@
       "title": "Google",
       "username": "Dragos321",
       "email": "dragos@hotmail.com",
+      "password": "password123",
       "website": "accounts.google.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/google.jpg",
       "group": ""
     },
     {
@@ -114,9 +124,10 @@
       "title": "YouTube",
       "username": "Prostul123",
       "email": "john@google.be",
+      "password": "password123",
       "website": "www.youtube.com",
       "notes": "",
-      "icon": "",
+      "icon": "./images/youtube.png",
       "group": ""
     }
 ]
