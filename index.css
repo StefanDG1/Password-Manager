@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: Helvetica, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -70,7 +71,6 @@ html, body {
     background-color: #39ace7;
     border: none;
     border-radius: 0.5em;
-    font-family: Helvetica;
     font-weight: 600;
     text-align: center;
     box-shadow: 0 0.1rem 0.25rem #999;
@@ -97,7 +97,6 @@ html, body {
     width: 75%;
     min-height: 1.25em;
     font-size: 1.25rem;
-    font-family: Helvetica;
     font-weight: 600;
     border: 2px solid #808080;
     border-radius: 1rem;
@@ -155,8 +154,10 @@ html, body {
 
 .card-icon {
     display: relative;
-    max-height: 50px;
+    max-height: 3rem;
     width: auto;
+    border-radius: 1rem;
+    background: transparent;
 }
 
 .current-selection, .current-selection span {
@@ -168,8 +169,47 @@ html, body {
     display: none;
 }
 
-.user-info-container {
+.info-wrapper {
+    position: relative;
+}
+
+.info-container {
     width: 60%;
-    height: calc(92.5vh - 0.15rem);
-    background-color: red;
+    max-height: calc(92.5vh - 0.15rem);
+    background-color: #cadeef;
+    border-left: 2px solid lightgray;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: left;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.info-icon-pic {
+    max-width: 30%;
+    top: 0;
+    left: 0;
+    aspect-ratio: 1 / 1;
+}
+
+.close-button {
+    position: absolute;
+    top: 8.5vh;
+    right: 1vh;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    transition: all 0.2s linear;
+    opacity: 0.4;
+}
+
+.close-button:hover {
+    opacity: 1;
 }
