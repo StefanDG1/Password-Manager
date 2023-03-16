@@ -6,11 +6,13 @@ const createWindow = () => {
         width: 1000,
         height: 700,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            contextIsolation: true,
+            sandbox: false,
+            preload: path.join(__dirname, 'preload.js'),
         }
     })
 
-    win.loadFile("index.html");
+    win.loadFile(path.join(__dirname, "index.html"));
     //win.removeMenu();
 }
 

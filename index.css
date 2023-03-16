@@ -156,7 +156,7 @@ html, body {
     display: relative;
     max-height: 3rem;
     width: auto;
-    border-radius: 1rem;
+    border-radius: 25%;
     background: transparent;
 }
 
@@ -171,6 +171,7 @@ html, body {
 
 .info-wrapper {
     position: relative;
+
 }
 
 .info-container {
@@ -179,19 +180,10 @@ html, body {
     background-color: #cadeef;
     border-left: 2px solid lightgray;
     display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: left;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0.5rem;
 }
 
-.info-icon-pic {
-    max-width: 30%;
-    top: 0;
-    left: 0;
-    aspect-ratio: 1 / 1;
-}
 
 .close-button {
     position: absolute;
@@ -212,4 +204,30 @@ html, body {
 
 .close-button:hover {
     opacity: 1;
+}
+
+.info-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.info-icon-pic {
+    min-width: 20%;
+    max-width: 20%;
+    top: 0;
+    left: 0;
+    aspect-ratio: 1 / 1;
+    flex: 1 1 1fr;
+    border-radius: 25%;
+}
+
+.info-title {
+    flex: 1 1 3fr;
+    text-align: left;
+    justify-self: left;
+    margin-left: 0.5rem;
+    font-size: 2rem;
+    font-weight: 600;
 }

@@ -11,12 +11,15 @@
 
 <body>
     <div class="main">
-        <div class="left"></div>
+        <div class="left">
+            <button onclick="addNew()">Add New Entry</button>
+        </div>
         <div class="right">
             <div class="top-bar">
                 <div class="new-item-wrapper">
                     <!-- LINK SHOULD POINT TO NEW .html page to add user info  -->
-                    <a class="new-item" href="./newItem/newItem.html" target="_blank"><span class="plus">+</span> New Item</a>
+                    <a class="new-item" href="./newItem/newItem.html" target="_blank"><span class="plus">+</span> New
+                        Item</a>
                 </div>
                 <div class="search-wrapper">
                     <input type="search" name="search" id="search" placeholder="Search" spellcheck="false" search-box>
@@ -25,7 +28,7 @@
             <div class="content">
                 <div class="user-cards" user-cards-container>
 
-                <!-- EXAMPLE OF CARD
+                    <!-- EXAMPLE OF CARD
                     <div class="card" onclick="selected(this)">
                         <div><img src="./netflix-logo-png-11593869496jqso5gxgsy.png" alt="Netflix" class="card-icon"></div>
                         <div class="card-text">
@@ -34,7 +37,7 @@
                         </div>
                     </div>
                 -->
-                
+
                     <template card-template>
                         <div class="card" onclick="selected(this)" identifier="">
                             <div><img class="card-icon" card-icon></div>
@@ -43,17 +46,21 @@
                                 <div class="card-email"><span card-email></span></div>
                             </div>
                         </div>
-                    </template>       
+                    </template>
                 </div>
                 <div class="info-container">
-                    <div class="info-icon"><img class="info-icon-pic"></div>
-                    <div class="info-title"></div>
+                    <div class="info-title-container">
+                        <img class="info-icon-pic">
+                        <div class="info-title"></div>
+                    </div>
                     <div class="info-website"></div>
                     <div class="info-username"></div>
                     <div class="info-email"></div>
                     <div class="info-password"></div>
                     <div class="info-group"></div>
                     <div class="info-notes"></div>
+                    <div class="info-created"></div>
+                    <div class="info-modified"></div>
                     <div onclick="closeInfo()">
                         <span class="close-button" aria-hidden="true">&times;</span>
                     </div>
