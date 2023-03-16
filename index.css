@@ -145,7 +145,7 @@ html, body {
     margin-inline: 1rem;
 }
 
-.card-email {
+.card-username {
     font-size: 1rem;
     color: #555;
     font-weight: lighter;
@@ -214,19 +214,15 @@ html, body {
 }
 
 .info-icon-pic {
-    min-width: 20%;
-    max-width: 20%;
+    min-width: 17.5%;
+    max-width: 17.5%;
     top: 0;
     left: 0;
     aspect-ratio: 1 / 1;
-    flex: 1 1 1fr;
     border-radius: 25%;
 }
 
 .info-title {
-    flex: 1 1 3fr;
-    text-align: left;
-    justify-self: left;
     margin-left: 0.5rem;
     font-size: 2rem;
     font-weight: 600;

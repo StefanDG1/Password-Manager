@@ -8,7 +8,6 @@ const infoIcon = infoContainer.getElementsByClassName("info-icon-pic")[0]
 const infoTitle = infoContainer.getElementsByClassName("info-title")[0]
 const infoWebsite = infoContainer.getElementsByClassName("info-website")[0]
 const infoUsername = infoContainer.getElementsByClassName("info-username")[0]
-const infoEmail = infoContainer.getElementsByClassName("info-email")[0]
 const infoPassword = infoContainer.getElementsByClassName("info-password")[0]
 const infoGroup = infoContainer.getElementsByClassName("info-group")[0]
 const infoNotes = infoContainer.getElementsByClassName("info-notes")[0]
@@ -32,7 +31,6 @@ function selected(item) {
   infoTitle.textContent = currentlySelected.title;
   infoWebsite.textContent.append = currentlySelected.website;
   infoUsername.textContent = currentlySelected.username;
-  infoEmail.textContent = currentlySelected.email;
   infoPassword.textContent = currentlySelected.password;
   infoGroup.textContent = currentlySelected.group;
   infoNotes.textContent = currentlySelected.notes;
@@ -96,20 +94,19 @@ function retrieveData() {
       // reverse data array before mapping in order to get new db entries at the top and old at the bottom
       entries = data.reverse().map(entry => {
         const card = userCardTemplate.content.cloneNode(true).children[0]
-        const email = card.querySelector("[card-email]")
+        const username = card.querySelector("[card-username]")
         const image = card.querySelector("[card-icon]")
         const title = card.querySelector("[card-title]")
         card.identifier = entry.id
         image.src = entry.icon
         title.textContent = entry.title
-        email.textContent = entry.email
+        username.textContent = entry.username
 
         userCardContainer.append(card)
         return {
           id: entry.id,
           title: entry.title,
           username: entry.username,
-          email: entry.email,
           password: entry.password,
           website: entry.website,
           notes: entry.notes,
@@ -136,7 +133,6 @@ function addNew() {
     "id": newIndex,
     "title": "New Entry",
     "username": "Prostul123",
-    "email": "john@google.be",
     "password": "password123",
     "website": "www.youtube.com",
     "notes": "new entries",
