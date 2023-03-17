@@ -49,6 +49,8 @@ html, body {
     flex: 1 1 7.5vh;
     background-color: white;
     border-bottom: 2px solid lightgray;
+    border-top: 2px solid lightgray;
+
     display: flex;
     align-items: center;
 }
@@ -74,10 +76,11 @@ html, body {
     font-weight: 600;
     text-align: center;
     box-shadow: 0 0.1rem 0.25rem #999;
-    padding: 0.25em;
-    padding-right: 0.5em;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    padding-left: 1.25em;
     cursor: pointer;
     text-decoration: none;
+    position: relative;
 }
 
 .new-item:hover {
@@ -85,8 +88,12 @@ html, body {
 }
 
 .plus {
-    font-weight: 900;
-    padding: 0 0 0 0.25em;
+    height: 1em;
+    aspect-ratio: 1 / 1;
+    display: inline-block;
+    position: absolute;
+    top: 0.3em;
+    left: 0.15em;
 }
 
 .search-wrapper {
@@ -177,7 +184,7 @@ html, body {
 .info-container {
     width: 60%;
     max-height: calc(92.5vh - 0.15rem);
-    background-color: #cadeef;
+    background-color: #d9e2eb;
     border-left: 2px solid lightgray;
     display: none;
     font-size: 1rem;
