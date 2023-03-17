@@ -1,6 +1,5 @@
 // function to change bg-color of selected card element
 
-console.log(window.api.fs);
 let divItems = document.getElementsByClassName("card");
 
 const infoContainer = document.getElementsByClassName("info-container")[0];
@@ -60,24 +59,25 @@ const searchInput = document.querySelector("[search-box]")
 
 
 // filter through search results on click, focus (with tab), or when writing
+
+searchInput.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase()
+  entries.forEach(entry => {
+    const isVisible = entry.title.toLowerCase().includes(value) || entry.username.toLowerCase().includes(value)
+    entry.element.classList.toggle("hide", !isVisible)
+  })
+})
 searchInput.addEventListener("click", e => {
   const value = e.target.value.toLowerCase()
   entries.forEach(entry => {
-    const isVisible = entry.title.toLowerCase().includes(value) || entry.email.toLowerCase().includes(value)
+    const isVisible = entry.title.toLowerCase().includes(value) || entry.username.toLowerCase().includes(value)
     entry.element.classList.toggle("hide", !isVisible)
   })
 })
 searchInput.addEventListener("focus", e => {
   const value = e.target.value.toLowerCase()
   entries.forEach(entry => {
-    const isVisible = entry.title.toLowerCase().includes(value) || entry.email.toLowerCase().includes(value)
-    entry.element.classList.toggle("hide", !isVisible)
-  })
-})
-searchInput.addEventListener("input", e => {
-  const value = e.target.value.toLowerCase()
-  entries.forEach(entry => {
-    const isVisible = entry.title.toLowerCase().includes(value) || entry.email.toLowerCase().includes(value)
+    const isVisible = entry.title.toLowerCase().includes(value) || entry.username.toLowerCase().includes(value)
     entry.element.classList.toggle("hide", !isVisible)
   })
 })
