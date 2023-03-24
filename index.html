@@ -13,13 +13,14 @@
     <div class="main">
         <div class="left">
             <button onclick="addNew()">Add New Entry</button>
+            <button onclick="addImage()">Open a File</button>
         </div>
         <div class="right">
             <div class="top-bar">
                 <div class="new-item-wrapper">
                     <!-- LINK SHOULD POINT TO NEW .html page to add user info  -->
-                    <a class="new-item" href="./newItem/newItem.html" target="_blank" draggable="false"><img class="plus" src="./images/plus.png"> New
-                        Item</a>
+                    <button class="new-item" onclick="createNewItemWindow()"><img class="plus" src="./images/plus.png"> New
+                        Item</button>
                 </div>
                 <div class="search-wrapper">
                     <input type="search" name="search" id="search" placeholder="Search" spellcheck="false" search-box>

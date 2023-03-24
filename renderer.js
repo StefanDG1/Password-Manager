@@ -1,5 +1,8 @@
 let divItems = document.getElementsByClassName("card");
 
+const fs = api.fs;
+const path = api.path;
+
 const infoContainer = document.getElementsByClassName("info-container")[0];
 const infoIcon = infoContainer.getElementsByClassName("info-icon-pic")[0]
 const infoTitle = infoContainer.getElementsByClassName("info-title")[0]
@@ -126,7 +129,7 @@ retrieveData();
 
 function addNew() {
   let timeNow = currentTime();
-  let usersjson = api.fs.readFileSync("database.json", "utf-8");
+  let usersjson = fs.readFileSync("database.json", "utf-8");
   let users = JSON.parse(usersjson);
   let newIndex = users[users.length - 1].id + 1;
   let obj = {
@@ -143,7 +146,7 @@ function addNew() {
   }
   users.push(obj);
   usersjson = JSON.stringify(users);
-  api.fs.writeFileSync("database.json", usersjson, "utf-8");
+  fs.writeFileSync("database.json", usersjson, "utf-8");
 
   // empty card template and get data from database again to update list
   userCardContainer.replaceChildren();
@@ -162,4 +165,26 @@ function currentTime() {
   let time = currentHours + ":" + currentMinutes + ":" + currentSeconds;
   let dateTime = date + ', ' + time;
   return dateTime;
+}
+
+
+// function to add image from filesystem and copy it to images folder
+
+async function addImage() {
+  const filePath = await api.openFile()
+  console.log(filePath)
+  let fileName = path.basename(filePath)
+  console.log(fileName)
+  
+  // Copy the chosen file to the application's data path
+  fs.copyFile(filePath, "./images/" + fileName, (err) => {
+    if (err) throw err;
+    console.log('Image: ' + fileName + ' was stored.');
+
+    // At that point, store some information like the file name for later use
+  })
+}
+
+function createNewItemWindow() {
+  api.newItemWin();
 }
