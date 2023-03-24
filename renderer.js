@@ -1,5 +1,3 @@
-// function to change bg-color of selected card element
-
 let divItems = document.getElementsByClassName("card");
 
 const infoContainer = document.getElementsByClassName("info-container")[0];
@@ -13,6 +11,8 @@ const infoNotes = infoContainer.getElementsByClassName("info-notes")[0]
 const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
 const infoModified = infoContainer.getElementsByClassName("info-modified")[0]
 
+
+// function to change bg-color of selected card element
 
 function selected(item) {
   infoContainer.style.display = "block";
@@ -131,8 +131,8 @@ function addNew() {
   let newIndex = users[users.length - 1].id + 1;
   let obj = {
     "id": newIndex,
-    "title": "New Entry",
-    "username": "Prostul123",
+    "title": "New Entry " + newIndex,
+    "username": "New user " + newIndex,
     "password": "password123",
     "website": "www.youtube.com",
     "notes": "new entries",

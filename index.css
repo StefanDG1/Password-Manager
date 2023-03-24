@@ -76,8 +76,8 @@ html, body {
     font-weight: 600;
     text-align: center;
     box-shadow: 0 0.1rem 0.25rem #999;
-    padding: 0.25em 0.5em 0.25em 0.5em;
-    padding-left: 1.25em;
+    padding: 0.25em 0.5em;
+    padding-left: 1.5em;
     cursor: pointer;
     text-decoration: none;
     position: relative;
@@ -87,13 +87,17 @@ html, body {
     background-color: #339cd0;
 }
 
+.new-item:active {
+    top: 0.1em;
+}
+
 .plus {
     height: 1em;
     aspect-ratio: 1 / 1;
     display: inline-block;
     position: absolute;
     top: 0.3em;
-    left: 0.15em;
+    left: 0.3em;
 }
 
 .search-wrapper {
