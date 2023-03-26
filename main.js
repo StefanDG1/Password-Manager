@@ -42,6 +42,7 @@ async function handleFileOpen() {
     if (canceled) {
         return
     } else {
+        console.log(filePaths[0])
         return filePaths[0]
     }
 }
@@ -52,6 +53,7 @@ const createNewItemWindow = async () => {
         parent: mainWindow,
         modal: true,
         show: false,
+        maximizable: false,
         webPreferences: {
             preloadcontextIsolation: true,
             sandbox: false,

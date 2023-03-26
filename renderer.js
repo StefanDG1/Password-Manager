@@ -15,12 +15,12 @@ const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
 const infoModified = infoContainer.getElementsByClassName("info-modified")[0]
 
 
-// function to change bg-color of selected card element
+// function to change bg-color of selected card element and change info of info container
 
 function selected(item) {
   infoContainer.style.display = "block";
   this.clear();
-  console.log(item);
+  //console.log(item);
   item.classList.add('current-selection');
   let currentlySelected = {};
   for (let i = 0; i < divItems.length; i++) {
@@ -28,10 +28,10 @@ function selected(item) {
       currentlySelected = entries[i];
     }
   }
-  console.log(currentlySelected);
+  //console.log(currentlySelected);
   infoIcon.src = currentlySelected.icon;
   infoTitle.textContent = currentlySelected.title;
-  infoWebsite.textContent.append = currentlySelected.website;
+  infoWebsite.textContent = currentlySelected.website;
   infoUsername.textContent = currentlySelected.username;
   infoPassword.textContent = currentlySelected.password;
   infoGroup.textContent = currentlySelected.group;
@@ -51,6 +51,7 @@ function clear() {
 function closeInfo() {
   infoContainer.style.display = "none";
 }
+
 
 // code to create div card elements from database file and filter results based on search bar
 
@@ -127,39 +128,36 @@ retrieveData();
 
 // prototype function to add new user data and update the list of elements
 
-function addNew() {
-  let timeNow = currentTime();
+function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
   let users = JSON.parse(usersjson);
-  let newIndex = users[users.length - 1].id + 1;
-  let obj = {
-    "id": newIndex,
-    "title": "New Entry " + newIndex,
-    "username": "New user " + newIndex,
-    "password": "password123",
-    "website": "www.youtube.com",
-    "notes": "new entries",
-    "icon": "./images/youtube.png",
-    "group": "new entry group",
-    "dateCreated": timeNow,
-    "lastModified": timeNow,
-  }
+  //let newIndex = users[users.length - 1].id + 1;
+  // let obj = {
+  //   "id": newIndex,
+  //   "title": obj.title,
+  //   "username": obj.username,
+  //   "password": obj.password,
+  //   "website": obj.website,
+  //   "notes": "new entries",
+  //   "icon": "./images/youtube.png",
+  //   "group": "new entry group",
+  //   "dateCreated": timeNow,
+  //   "lastModified": timeNow,
+  // }
   users.push(obj);
   usersjson = JSON.stringify(users);
   fs.writeFileSync("database.json", usersjson, "utf-8");
 
   // empty card template and get data from database again to update list
-  userCardContainer.replaceChildren();
-  retrieveData();
 }
 
 function currentTime() {
   let today = new Date();
-  let currentDay = today.getDate() + 1 < 10 ? '0' + today.getDate() : today.getDate();
-  let currentMonth = today.getMonth() + 1 < 10 ? '0' + today.getMonth() : today.getMonth();
-  let currentHours = today.getHours() + 1 < 10 ? '0' + today.getHours() : today.getHours();
-  let currentMinutes = today.getHours() + 1 < 10 ? '0' + today.getMinutes() : today.getMinutes();
-  let currentSeconds = today.getHours() + 1 < 10 ? '0' + today.getSeconds() : today.getSeconds();
+  let currentDay = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
+  let currentMonth = today.getMonth() + 1 < 10 ? '0' + (today.getMonth() + 1) : (today.getMonth() + 1);
+  let currentHours = today.getHours() < 10 ? '0' + today.getHours() : today.getHours();
+  let currentMinutes = today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes();
+  let currentSeconds = today.getSeconds() < 10 ? '0' + today.getSeconds() : today.getSeconds();
 
   let date = currentDay + '/' + currentMonth + '/' + today.getFullYear();
   let time = currentHours + ":" + currentMinutes + ":" + currentSeconds;
@@ -167,24 +165,79 @@ function currentTime() {
   return dateTime;
 }
 
-
 // function to add image from filesystem and copy it to images folder
-
-async function addImage() {
-  const filePath = await api.openFile()
-  console.log(filePath)
-  let fileName = path.basename(filePath)
-  console.log(fileName)
+let filePath;
+let fileName;
+async function addImage(spanClassName) {
+  filePath = await api.openFile()
+  //console.log(filePath)
+  fileName = path.basename(filePath)
+  //console.log(fileName)
+  document.getElementsByClassName(spanClassName)[0].innerHTML = fileName;
   
+  /* run this code on save button
   // Copy the chosen file to the application's data path
   fs.copyFile(filePath, "./images/" + fileName, (err) => {
-    if (err) throw err;
-    console.log('Image: ' + fileName + ' was stored.');
+      if (err) throw err;
+      console.log('Image: ' + fileName + ' was stored.');
+  });
 
-    // At that point, store some information like the file name for later use
-  })
+  */
+}
+
+function saveChanges() {
+  let title = document.getElementById('newTitle').value;
+  let username = document.getElementById('newUsername').value;
+  let password = document.getElementById('newPassword').value;
+  let website = document.getElementById('newWebsite').value;
+  let notes = document.getElementById('newNotes').value;
+  let group = document.getElementById('newGroup').value;
+  let newIndex = entries.length;
+  const newData = {
+    "id": newIndex,
+    "title": title,
+    "username": username,
+    "password": password,
+    "website": website,
+    "notes": notes,
+    "icon": filePath,
+    "group": group,
+    "dateCreated": currentTime(),
+    "lastModified": currentTime(),
+  };
+
+  title = "";
+  console.log(title)
+  username = "";
+  password = "";
+  website = "";
+  notes = "";
+  filePath = "";
+  group = "";
+  
+  console.log(newData);
+  addNew(newData);
+
+  userCardContainer.replaceChildren();
+  retrieveData();
+
+  
+
+  closeNew();
+
 }
 
 function createNewItemWindow() {
   api.newItemWin();
+}
+
+
+const popUpNew = document.getElementsByClassName("pop-up-new")[0];
+
+function closeNew() {
+  popUpNew.style.display = "none";
+}
+
+function openNew() {
+  popUpNew.style.display = "block";
 }
