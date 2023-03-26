@@ -1,13 +1,10 @@
 const { BrowserWindow, app, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require("fs");
-const { create } = require('domain');
 
-
-let mainWindow;
 
 const createWindow = () => {
-    mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,
         webPreferences: {
