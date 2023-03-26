@@ -205,32 +205,26 @@ function saveChanges() {
     "dateCreated": currentTime(),
     "lastModified": currentTime(),
   };
-
-  title = "";
-  console.log(title)
-  username = "";
-  password = "";
-  website = "";
-  notes = "";
-  filePath = "";
-  group = "";
   
   console.log(newData);
   addNew(newData);
-
   userCardContainer.replaceChildren();
   retrieveData();
-
-  
-
+  clearInput();
   closeNew();
-
 }
 
-function createNewItemWindow() {
-  api.newItemWin();
-}
+function clearInput() {
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newUsername').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('newWebsite').value = '';
+  document.getElementById('newNotes').value = '';
+  document.getElementById('newGroup').value = '';
+  filePath = null;
+  document.getElementsByClassName('image-text')[0].innerHTML = '';
 
+}
 
 const popUpNew = document.getElementsByClassName("pop-up-new")[0];
 

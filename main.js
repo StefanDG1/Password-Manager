@@ -46,26 +46,3 @@ async function handleFileOpen() {
         return filePaths[0]
     }
 }
-
-
-const createNewItemWindow = async () => {
-    const newItemWindow = new BrowserWindow({
-        parent: mainWindow,
-        modal: true,
-        show: false,
-        maximizable: false,
-        webPreferences: {
-            preloadcontextIsolation: true,
-            sandbox: false,
-            preload: path.join(__dirname, 'preload.js'),
-        }
-    })
-
-    await newItemWindow.loadFile(path.join(__dirname, "./newItem/newItem.html"));
-    newItemWindow.once('ready-to-show', () => {
-        newItemWindow.show()
-      })
-    //win.removeMenu();
-}
-
-ipcMain.handle('newItemWindow', createNewItemWindow)
