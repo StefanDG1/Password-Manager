@@ -103,6 +103,10 @@ function retrieveData() {
         const title = card.querySelector("[card-title]")
         card.identifier = entry.id
         image.src = entry.icon
+        if (entry.icon == null) {
+          entry.icon = './images/default.png';
+          image.src = './images/default.png';
+        }
         title.textContent = entry.title
         username.textContent = entry.username
 
