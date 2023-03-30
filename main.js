@@ -1,16 +1,20 @@
-const { BrowserWindow, app } = require('electron');
+const { BrowserWindow, app, ipcMain, dialog } = require('electron');
 const path = require('path');
+const fs = require("fs");
+
 
 const createWindow = () => {
-    const win = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            contextIsolation: true,
+            sandbox: false,
+            preload: path.join(__dirname, 'preload.js'),
         }
     })
 
-    win.loadFile("index.html");
+    mainWindow.loadFile(path.join(__dirname, "index.html"));
     //win.removeMenu();
 }
 
@@ -21,3 +25,21 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 });
+
+// code for image file
+ipcMain.handle('dialog:openFile', handleFileOpen)
+
+async function handleFileOpen() {
+    const { canceled, filePaths } = await dialog.showOpenDialog({ 
+        properties: ['openFile'],
+        filters: [
+            { name: 'Images', extensions: ['jpg', 'png', 'gif', 'svg'] },
+          ]
+    });
+    if (canceled) {
+        return
+    } else {
+        console.log(filePaths[0])
+        return filePaths[0]
+    }
+}
