@@ -2,6 +2,14 @@ const { BrowserWindow, app, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require("fs");
 
+/*
+var knex = require("knex")({
+    client: "sqlite3",
+    connection: {
+        filename: "./db.sqlite"
+    }
+});
+*/
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -42,4 +50,29 @@ async function handleFileOpen() {
         console.log(filePaths[0])
         return filePaths[0]
     }
+}
+
+// code for sqlite3 db
+ipcMain.handle('db:savedata', handleSaveData)
+async function handleSaveData(event, newData) {
+    console.log("save in mainrenderer " + newData);
+    const fs = require("fs");
+    const sqlite3 = require("sqlite3").verbose();
+    let db = new sqlite3.Database("./db.sqlite", (err) => {
+      if(err) {
+          console.log("Error Occurred - " + err.message);
+      }
+      else {
+          console.log("DataBase Connected");
+      }
+    });
+
+    var insertQuery = 'INSERT INTO user (username,password,title) VALUES ("'+newData.username+'","'+newData.password+'","'+newData.title+'")';
+    db.run(insertQuery, (err) => {
+      if(err) {
+            console.log(err);
+            return;
+        }
+      console.log("Insertion Done");
+    });
 }
