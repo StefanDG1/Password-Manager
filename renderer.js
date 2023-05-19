@@ -6,6 +6,9 @@ const path = api.path;
 //fconst sqlite3 = require('sqlite3').verbose();
 const fs = api.fs;
 const sqlite3 = api.sqlite3;
+const crypto = require("crypto");
+const { ipcRenderer } = require("electron");
+
 //
 
 const infoContainer = document.getElementsByClassName("info-container")[0];
@@ -220,6 +223,50 @@ function saveChanges() {
   closeNew();
 }
 
+
+
+function handleSaveData(newData) {
+  console.log("saving data", newData);
+  ipcRenderer.invoke("db:savedata", newData);
+}
+
+
+
+// code for encryption/decryption
+/*
+const data = saveChanges(newData.username);
+const secret = (pppppppppppppppppppppppppppppppp)
+
+const encrypt = (data) =>{
+    const iv = Buffer.from(crypto.randomBytes(16));
+    const cipher = crypto.createCypheriv("aes-256-ctr", Buffer.from(secret), iv);
+
+    const encrypted = buffer.concat([
+        cipher.update(data),
+        cipher.final(),
+    ]);
+
+    return {
+      data: encrypted.toString("hex"),
+  };
+}
+
+//ipcRenderer.send('encrypt', data);
+
+const decrypt = (encrypt) =>{
+    const decipher = crypto.createDecipheriv(
+        "aes-256-ctr",
+        Buffer.from(secret),
+        Buffer.from(encrypt.iv, "hex")
+    );
+
+    return decryptedPassword.toString()
+}
+
+    module.exports = {encrypt, decrypt};
+*/
+
+
 function clearInput() {
   document.getElementById('newTitle').value = '';
   document.getElementById('newUsername').value = '';
@@ -246,103 +293,7 @@ function openNew() {
 
 console.log(api.fs)
 
-//var form = document.getElementById("newForm")
-
-/*
-form.addEventListener("submit", function(event){
-    event.preventDefault()
-
-    var username = document.getElementById("newUsername").value
-    console.log(newUsername)
-    var password = document.getElementById("newPassword").value
-    console.log(newPassword)
-    var title = document.getElementById("newTitle").value
-    console.log(newTitle)
-    addData(newUsername, newPassword, newTitle)
-})
-*/
-
-//const sqlite3 = require('sqlite3').verbose();
-
-//var filebuffer = fs.readFileSync('test.sqlite');
-
-
-/*
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
-
-db.serialize(function() {
-  db.run("CREATE TABLE users (username TEXT)");
-
-  var stmt = db.prepare("INSERT INTO users VALUES (?)");
-    for (var i = 0; i < 10; i++) {
-      stmt.run("user " + i);
-    }
-
-    stmt.finalize();
-
-    var rows = document.getElementById("database");
-    db.each("SELECT rowid AS id, username FROM users", function(err, row) {
-      var item = document.createElement("li");
-          item.textContent = "" + row.id + ": " + row.info;
-          rows.appendChild(item);
-    });
-});
-
-db.close();
-*/
-
 async function addData(newData){
   console.log(newData);
     await api.saveData(newData);
-    //var FS = require("fs");
-    //var SQL = require("sqlite3");
-    //var filebuffer = fs.readFileSync("./db.sqlite"); 
-    //var DB = new SQL.Database(filebuffer);      
-    //const sqlite3 = api.sqlite3;
-    
-    //const fs = require("fs");
-    //const sqlite3 = require("sqlite3").verbose();
-    // let db = new sqlite3.Database("/db.sqlite", (err) => {
-    //   if(err) {
-    //       console.log("Error Occurred - " + err.message);
-    //   }
-    //   else {
-    //       console.log("DataBase Connected");
-    //   }
-    // });
-
-    // var insertQuery = 'INSERT INTO user (username) VALUES ('+newUsername+')'
-    // db.run(insertQuery , [newUsername], (err) => {
-    //   if(err) return;
-      
-    //   console.log("Insertion Done");
-    // }); 
-
-    // //DB.run('INSERT INTO user(username) VALUES'(newUsername));
-    // var data = db.export();
-    // var buffer = new Buffer(data);
-    // fs.writeFileSync("./db.sqlite", buffer );
-    // db.close((err) => {
-    //   if (err) {
-    //     console.error(err.message);
-    //   } else {
-    //     console.log("Database Closed");
-    //   }
-    // });
 }
-
-/*
-const sqlite3 = require('sqlite3').verbose();
-let DB = sqlite3.Database('./db.sqlite');
-// insert one row into the user table
-DB.run('INSERT INTO user(username) VALUES'(newUsername), function(err) {
-  if (err) {
-    return console.log(err.message);
-  }
-// get the last insert id
-  console.log(`A row has been inserted with rowid ${this.lastID}`);
-});
-// close the database connection
-db.close();
-*/

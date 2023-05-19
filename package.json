@@ -8,7 +8,7 @@
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps"
   },
-  "author": "Stefan",
+  "author": "Dragos, Stefan",
   "license": "ISC",
   "devDependencies": {
     "electron": "^23.2.0",
@@ -16,6 +16,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "fs": "^0.0.1-security",
     "knex": "^2.4.2",
     "sql.js": "^1.8.0",

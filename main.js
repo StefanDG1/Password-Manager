@@ -1,15 +1,8 @@
 const { BrowserWindow, app, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require("fs");
+const crypto = require("crypto");
 
-/*
-var knex = require("knex")({
-    client: "sqlite3",
-    connection: {
-        filename: "./db.sqlite"
-    }
-});
-*/
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -51,6 +44,21 @@ async function handleFileOpen() {
         return filePaths[0]
     }
 }
+/*
+const data = saveChanges(newData.username);
+const secret = (pppppppppppppppppppppppppppppppp)
+*/
+
+
+
+/*
+ipcMain.on('encrypt', (event,data) => { 
+    const secret = 'pppppppppppppppppppppppppppppppp';
+    const iv = Buffer.from(crypto.randomBytes(16));
+    const cipher = crypto.createCipheriv('aes-256-ctr', Buffer.from(secret), iv);
+    const encryptedData = Buffer.concat([cipher.update(data), cipher.final()]);
+})
+*/
 
 // code for sqlite3 db
 ipcMain.handle('db:savedata', handleSaveData)
@@ -67,7 +75,29 @@ async function handleSaveData(event, newData) {
       }
     });
 
-    var insertQuery = 'INSERT INTO user (username,password,title) VALUES ("'+newData.username+'","'+newData.password+'","'+newData.title+'")';
+    const string = JSON.stringify(newData);
+
+    const encrypt = (string) =>{
+        const secret = ('pppppppppppppppppppppppppppppppp');
+        const iv = Buffer.from(crypto.randomBytes(16));
+        const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(secret), iv);
+    
+        const encrypted = Buffer.concat([
+            cipher.update(string),
+            cipher.final(),
+        ]);
+    
+        return {
+            iv: iv.toString("hex"),
+            username: encrypted.toString("hex"),
+            password: encrypted.toString("hex"),
+            title: encrypted.toString("hex"),
+      };
+    }
+
+    const encryptedData = encrypt(string);
+
+    var insertQuery = 'INSERT INTO user (username,password,title) VALUES ("'+encryptedData.username+'", "'+encryptedData.password+'", "'+encryptedData.title+'")';
     db.run(insertQuery, (err) => {
       if(err) {
             console.log(err);
