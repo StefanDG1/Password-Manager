@@ -22,7 +22,6 @@ const infoPassword = infoContainer.getElementsByClassName("info-password")[0]
 const infoGroup = infoContainer.getElementsByClassName("info-group")[0]
 const infoNotes = infoContainer.getElementsByClassName("info-notes")[0]
 const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
-const infoModified = infoContainer.getElementsByClassName("info-modified")[0]
 
 // function to change bg-color of selected card element and change info of info container
 let currentlySelected = {};
@@ -46,7 +45,6 @@ function selected(item) {
   infoGroup.textContent = currentlySelected.group;
   infoNotes.textContent = currentlySelected.notes;
   infoCreated.textContent = currentlySelected.dateCreated;
-  infoModified.textContent = currentlySelected.lastModified;
 
 }
 
@@ -131,7 +129,6 @@ function retrieveData() {
           icon: entry.icon,
           group: entry.group,
           dateCreated: entry.dateCreated,
-          lastModified: entry.lastModified,
           element: card
         }
       })
@@ -220,7 +217,6 @@ function saveChanges() {
     "icon": filePath,
     "group": group,
     "dateCreated": currentTime(),
-    "lastModified": currentTime(),
   };
   
   console.log(newData);
