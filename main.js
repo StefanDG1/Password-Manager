@@ -2,6 +2,7 @@ const { BrowserWindow, app, ipcMain, dialog, Tray, Menu, clipboard, globalShortc
 const path = require('path');
 const fs = require('fs');
 
+
 let mainWindow;
 const createWindow = () => {
     mainWindow = new BrowserWindow({
@@ -62,7 +63,7 @@ app.whenReady().then(() => {
         }
     ]);
 
-    const ctrlc = globalShortcut.register('CommandOrControl+C', () => {
+    const ctrlc = globalShortcut.register('CommandOrControl+K', () => {
         console.log('ctrl c is pressed');
         mainWindow.webContents.send('ctrl-c', 1);
     });

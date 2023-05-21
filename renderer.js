@@ -1,8 +1,11 @@
-let divItems = document.getElementsByClassName("card");
-
 const fs = api.fs;
 const path = api.path;
 const clipboard = api.clipboard;
+const encryptor = api.encryptor;
+let divItems = document.getElementsByClassName("card");
+
+
+
 const ctrlc = api.ctrlc((_event, value) => {
   if (value) {
     console.log('hi');
@@ -12,7 +15,6 @@ const ctrlc = api.ctrlc((_event, value) => {
     }
   }
 })
-
 const infoContainer = document.getElementsByClassName("info-container")[0];
 const infoIcon = infoContainer.getElementsByClassName("info-icon-pic")[0]
 const infoTitle = infoContainer.getElementsByClassName("info-title")[0]
@@ -23,8 +25,6 @@ const infoGroup = infoContainer.getElementsByClassName("info-group")[0]
 const infoNotes = infoContainer.getElementsByClassName("info-notes")[0]
 const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
 const infoModified = infoContainer.getElementsByClassName("info-modified")[0]
-
-
 
 // function to change bg-color of selected card element and change info of info container
 let currentlySelected = {};
@@ -103,6 +103,7 @@ searchInput.addEventListener("focus", e => {
 let entries = [];
 
 function retrieveData() {
+  decrypt()
   fetch("./database.json")
     .then(res => res.json())
     .then(data => {
@@ -137,6 +138,7 @@ function retrieveData() {
         }
       })
     });
+  encrypt()
 }
 
 retrieveData();
@@ -145,7 +147,7 @@ retrieveData();
 
 function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
-  console.log(usersjson);
+  //console.log(usersjson)
   let users = JSON.parse(usersjson);
   //let newIndex = users[users.length - 1].id + 1;
   // let obj = {
@@ -163,7 +165,7 @@ function addNew(obj) {
   users.push(obj);
   usersjson = JSON.stringify(users);
   fs.writeFileSync("database.json", usersjson, "utf-8");
-
+  //encrypt()
   // empty card template and get data from database again to update list
 }
 
@@ -202,6 +204,7 @@ async function addImage(spanClassName) {
 }
 
 function saveChanges() {
+  decrypt()
   let title = document.getElementById('newTitle').value;
   let username = document.getElementById('newUsername').value;
   let password = document.getElementById('newPassword').value;
@@ -224,6 +227,7 @@ function saveChanges() {
   
   console.log(newData);
   addNew(newData);
+  encrypt()
   userCardContainer.replaceChildren();
   retrieveData();
   clearInput();
@@ -252,3 +256,18 @@ function openNew() {
   popUpNew.style.display = "block";
 }
 
+
+function encrypt() {
+  let data = fs.readFileSync("database.json", "utf-8");
+  var encrypted = encryptor.encrypt(data);
+  console.log(encrypted)
+  fs.writeFileSync("database.json", encrypted, "utf-8");
+}
+
+
+function decrypt() {
+  let encrypted = fs.readFileSync("database.json", "utf-8");
+  let decrypted = encryptor.decrypt(encrypted);
+  console.log(decrypted)
+  fs.writeFileSync("database.json", decrypted, "utf-8");
+}

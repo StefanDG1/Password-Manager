@@ -10,6 +10,11 @@
   "author": "Stefan",
   "license": "ISC",
   "devDependencies": {
+    "@electron/rebuild": "^3.2.13",
     "electron": "^23.1.3"
+  },
+  "dependencies": {
+    "json-file-encrypt": "^2.1.2",
+    "simple-encryptor": "^4.0.0"
   }
 }
