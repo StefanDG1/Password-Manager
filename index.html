@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <title>MiniPass</title>
-    <src="dist/bundle.js></src>
-</head>
+    <src="dist/bundle.js> </src> </head> <body>
 
-<body>
-    
+<body onload=request()>
+
     <div class="pop-up-new">
         <div class="new-content">
             <div onclick="closeNew()">
@@ -27,7 +26,8 @@
                 <label for="newWebsite">Website: </label>
                 <input type="text" name="website" id="newWebsite">
                 <label for="newNotes">Notes</label>
-                <textarea name="notes" id="newNotes" cols="30" rows="10" placeholder="Type your notes here" class="not-resizable"></textarea>
+                <textarea name="notes" id="newNotes" cols="30" rows="10" placeholder="Type your notes here"
+                    class="not-resizable"></textarea>
                 <label for="addImageButton">Add Image</label>
                 <button id='addImageButton' onclick="addImage('image-text')">Add image</button>
                 <span class="image-span">Image: <span class="image-text"> </span></span>
@@ -70,7 +70,7 @@
                         </div>
                     </template>
                 </div>
-                <div class="info-container">
+                <div style="background-color: brown;" class="info-container">
                     <div class="info-title-container">
                         <img class="info-icon-pic">
                         <div class="info-title"></div>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <script src="renderer.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
