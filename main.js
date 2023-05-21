@@ -64,7 +64,7 @@ app.whenReady().then(() => {
     ]);
 
     const ctrlc = globalShortcut.register('CommandOrControl+K', () => {
-        console.log('ctrl c is pressed');
+        console.log('ctrl k is pressed');
         mainWindow.webContents.send('ctrl-c', 1);
     });
 
