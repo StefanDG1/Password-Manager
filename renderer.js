@@ -4,8 +4,6 @@ const clipboard = api.clipboard;
 const encryptor = api.encryptor;
 let divItems = document.getElementsByClassName("card");
 
-
-
 const ctrlc = api.ctrlc((_event, value) => {
   if (value) {
     console.log('hi');
