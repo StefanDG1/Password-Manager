@@ -2,6 +2,16 @@ let divItems = document.getElementsByClassName("card");
 
 const fs = api.fs;
 const path = api.path;
+const clipboard = api.clipboard;
+const ctrlc = api.ctrlc((_event, value) => {
+  if (value) {
+    console.log('hi');
+    if (currentlySelected != null) {
+      console.log(currentlySelected.password);
+      clipboard.writeText(currentlySelected.password)
+    }
+  }
+})
 
 const infoContainer = document.getElementsByClassName("info-container")[0];
 const infoIcon = infoContainer.getElementsByClassName("info-icon-pic")[0]
@@ -15,14 +25,15 @@ const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
 const infoModified = infoContainer.getElementsByClassName("info-modified")[0]
 
 
-// function to change bg-color of selected card element and change info of info container
 
+// function to change bg-color of selected card element and change info of info container
+let currentlySelected = {};
 function selected(item) {
   infoContainer.style.display = "block";
   this.clear();
   //console.log(item);
   item.classList.add('current-selection');
-  let currentlySelected = {};
+  
   for (let i = 0; i < divItems.length; i++) {
     if (item.identifier == entries[i].id) {
       currentlySelected = entries[i];
@@ -240,3 +251,4 @@ function closeNew() {
 function openNew() {
   popUpNew.style.display = "block";
 }
+

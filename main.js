@@ -1,4 +1,4 @@
-const { BrowserWindow, app, ipcMain, dialog, Tray, Menu } = require('electron');
+const { BrowserWindow, app, ipcMain, dialog, Tray, Menu, clipboard, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -37,6 +37,7 @@ let isQuiting;
 let tray;
 
 app.on('before-quit', () => {
+    globalShortcut.unregisterAll();
     isQuiting = true;
 });
 
@@ -60,6 +61,14 @@ app.whenReady().then(() => {
             }
         }
     ]);
+
+    const ctrlc = globalShortcut.register('CommandOrControl+C', () => {
+        console.log('ctrl c is pressed');
+        mainWindow.webContents.send('ctrl-c', 1);
+    });
+
+
+
 
     tray.setToolTip('MiniPass');
     tray.setContextMenu(contextMenu);
