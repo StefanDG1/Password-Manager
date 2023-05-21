@@ -16,24 +16,48 @@
                 <span class="new-close-button" aria-hidden="true">&times;</span>
             </div>
             <div id="newForm">
-                <label for="newTitle">Title: </label>
-                <input type="text" name="title" id="newTitle">
-                <label for="newUsername">Username: </label>
-                <input type="text" name="username" id="newUsername">
-                <label for="newPassword">Password: </label>
-                <input type="password" name="password" id="newPassword">
-                <label for="newWebsite">Website: </label>
-                <input type="text" name="website" id="newWebsite">
-                <label for="newNotes">Notes</label>
-                <textarea name="notes" id="newNotes" cols="30" rows="10" placeholder="Type your notes here" class="not-resizable"></textarea>
-                <label for="addImageButton">Add Image</label>
-                <button id='addImageButton' onclick="addImage('image-text')">Add image</button>
+                <div class="input-container ic1">
+                    <input id="newTitle" class="input" type="text" placeholder=" " />
+                    <div class="cut"></div>
+                    <label for="newTitle" class="placeholder">Title</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="newUsername" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="newUsername" class="placeholder">Username</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="newPassword" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="newPassword" class="placeholder">Password</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="newWebsite" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="newWebsite" class="placeholder">Website</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="newNotes" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="newNotes" class="placeholder">Notes</label>
+                </div>
+
+                <button id='addImageButton' onclick="addImage('image-text')" class="input-button">Add image</button>
                 <span class="image-span">Image: <span class="image-text"> </span></span>
-                <label for="newGroup">Group</label>
-                <input type="text" name="group" id="newGroup">
+
+                <div class="input-container ic2">
+                    <input id="newGroup" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="newGroup" class="placeholder">Group</label>
+                </div>
             </div>
-            <button class="save-button" onclick="saveChanges()">Save</button>
-            <button onclick="clearInput()">Clear</button>
+
+            <button class="input-button" onclick="saveChanges()">Save</button>
+            <button onclick="clearInput()" class="input-button">Clear</button>
         </div>
 
     </div>
@@ -42,7 +66,7 @@
     <div class="main">
 
         <div class="left">
-
+            <div class="logo-image"><img src="./images/icon.png" alt="MiniPass Icon"></div>
         </div>
 
         <div class="right">
@@ -73,13 +97,20 @@
                         <img class="info-icon-pic">
                         <div class="info-title"></div>
                     </div>
-                    <div class="info-username"></div>
-                    <div class="info-password"></div>
-                    <div class="info-website"></div>
-                    <div class="info-group"></div>
-                    <div class="info-notes"></div>
-                    <div class="info-created"></div>
-                    <div class="info-modified"></div>
+                    <p>Username</p>
+                    <div class="info-username info-input"></div>
+                    <p>Password</p>
+                    <div class="info-password info-input"></div>
+                    <p>Website</p>
+                    <div class="info-website info-input"></div>
+                    <p>Group</p>
+                    <div class="info-group info-input"></div>
+                    <p>Notes</p>
+                    <div class="info-notes info-input"></div>
+                    <p>Date created</p>
+                    <div class="info-created info-input"></div>
+                    <p>Date modified</p>
+                    <div class="info-modified info-input"></div>
                     <div onclick="closeInfo()">
                         <span class="close-button" aria-hidden="true">&times;</span>
                     </div>
