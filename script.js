@@ -1,12 +1,21 @@
 const sqlite3 = api.sqlite3;
-
+let entriesData = [];
 let divItems = document.getElementsByClassName("card");
-//
+
 function request() {
   console.log("loaded!");
   window.api.requestImages();
   window.api.requestData();
 }
+
+const decrypt = (encryption) => {
+  const decryptedPassword = Buffer.concat([
+    decipher.update(Buffer.from(encryption.password, "hex")),
+    decipher.final()
+  ]);
+  return decryptedPassword.toString()
+}
+
 let imagesAvailable;
 window.api.handleImages((event, images) => {
   imagesAvailable = images;
@@ -22,17 +31,19 @@ const infoNotes = document.getElementsByClassName("info-notes")[0];
 const infoCreated = document.getElementsByClassName("info-created")[0];
 const infoModified = document.getElementsByClassName("info-modified")[0];
 
-// function to change bg-color of selected card element and change info of info container
-
 function selected(item) {
   infoContainer.style.display = "block";
   this.clear();
   //console.log(item);
   item.classList.add("current-selection");
   let currentlySelected = {};
+  console.log(entriesData);
+
   for (let i = 0; i < divItems.length; i++) {
-    if (item.identifier == entries[i].id) {
-      currentlySelected = entries[i];
+    if (entriesData[i]) {
+      if (item.identifier == entriesData[i].id) {
+        currentlySelected = entriesData[i];
+      }
     }
   }
   //console.log(currentlySelected);
@@ -71,7 +82,7 @@ const searchInput = document.querySelector("[search-box]");
 
 searchInput.addEventListener("input", (e) => {
   const value = e.target.value.toLowerCase();
-  entries.forEach((entry) => {
+  entriesData.forEach((entry) => {
     const isVisible =
       entry.title.toLowerCase().includes(value) ||
       entry.username.toLowerCase().includes(value);
@@ -80,7 +91,7 @@ searchInput.addEventListener("input", (e) => {
 });
 searchInput.addEventListener("click", (e) => {
   const value = e.target.value.toLowerCase();
-  entries.forEach((entry) => {
+  entriesData.forEach((entry) => {
     const isVisible =
       entry.title.toLowerCase().includes(value) ||
       entry.username.toLowerCase().includes(value);
@@ -89,7 +100,7 @@ searchInput.addEventListener("click", (e) => {
 });
 searchInput.addEventListener("focus", (e) => {
   const value = e.target.value.toLowerCase();
-  entries.forEach((entry) => {
+  entriesData.forEach((entry) => {
     const isVisible =
       entry.title.toLowerCase().includes(value) ||
       entry.username.toLowerCase().includes(value);
@@ -102,7 +113,6 @@ searchInput.addEventListener("focus", (e) => {
 
 // prototype function to add new user data and update the list of elements
 
-/*
 function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
   let users = JSON.parse(usersjson);
@@ -125,16 +135,15 @@ function addNew(obj) {
 
   // empty card template and get data from database again to update list
 }
-*/
 
 function currentTime() {
   let today = new Date();
   let currentDay =
     today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
   let currentMonth =
-    today.getMonth() + 1 < 10
-      ? "0" + (today.getMonth() + 1)
-      : today.getMonth() + 1;
+    today.getMonth() + 1 < 10 ?
+    "0" + (today.getMonth() + 1) :
+    today.getMonth() + 1;
   let currentHours =
     today.getHours() < 10 ? "0" + today.getHours() : today.getHours();
   let currentMinutes =
@@ -189,14 +198,6 @@ function saveChanges() {
     lastModified: currentTime(),
   };
 
-  console.log(newData);
-  addData(newData);
-  //userCardContainer.replaceChildren();
-  retrieveData();
-  clearInput();
-  closeNew();
-}
-  let entries = [];
   window.api.handleData((event, rows) => {
     console.log("You got data from the server side: ", rows);
 
@@ -209,10 +210,11 @@ function saveChanges() {
       };
     });
     console.log(entries);
+    entriesData = entries;
     rows.map((entry) => {
       const card = userCardTemplate.content.cloneNode(true).children[0];
       card.querySelector("[card-username]").innerText = entry.username;
-      //    setting entries.username but not getting anything from it
+
       card.querySelector("[card-title]").innerText = entry.title;
       if (imagesAvailable.includes(entry.title.toLowerCase())) {
         console.log("Found ", entry.title);
@@ -268,6 +270,14 @@ function saveChanges() {
       console.log("save in mainrenderer " + data);
     }
   }
+
+  console.log(newData);
+  addData(newData);
+  //userCardContainer.replaceChildren();
+  retrieveData();
+  clearInput();
+  closeNew();
+}
 saveChanges();
 
 function handleSaveData(newData) {
@@ -300,5 +310,5 @@ function openNew() {
 
 async function addData(newData) {
   console.log(newData);
-  //await savedata(newData);
+  window.api.saveData(newData);
 }

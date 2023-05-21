@@ -26,4 +26,22 @@ db.all('SELECT * FROM user', [], (err, rows) => {
     rows.forEach((row) => {
         entry[row.id] = row.name;
     })
-})
+});
+
+var insertQuery =
+    'INSERT INTO user (username,password,title,iv) VALUES ("' +
+    "Krishnab2432" +
+    '", "' +
+    "Krishnab@9534" +
+    '", "' +
+    "youtube" +
+    '", "' +
+    "someiv" +
+    '")';
+  db.run(insertQuery, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log("Insertion Done");
+  });

@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const sqlite3 = require("sqlite3").verbose();
-
+const crypto = require('crypto');
 const fs = require("fs");
 const dialog = require("electron");
 const path = require("path");
@@ -12,7 +12,7 @@ const API = {
   sqlite3: sqlite3,
   fs: fs,
   openFile: () => ipcRenderer.invoke("dialog:openFile"),
-  saveData: (newData) => ipcRenderer.invoke("db:savedata", newData),
+  saveData: (newData) => ipcRenderer.send("save data to database", newData),
   retrieveData: (rows) => ipcRenderer.invoke("db:retrievedata", rows),
   path: path,
   entry: entry,
@@ -23,6 +23,7 @@ const API = {
   requestData: () => {
     ipcRenderer.send("send me data", "Hello World!");
   },
+  crypto
 };
 
 contextBridge.exposeInMainWorld("api", API);
