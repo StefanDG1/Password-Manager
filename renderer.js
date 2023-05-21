@@ -134,6 +134,7 @@ retrieveData();
 
 function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
+  console.log(usersjson);
   let users = JSON.parse(usersjson);
   //let newIndex = users[users.length - 1].id + 1;
   // let obj = {
