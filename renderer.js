@@ -6,9 +6,7 @@ let divItems = document.getElementsByClassName("card");
 
 const ctrlc = api.ctrlc((_event, value) => {
   if (value) {
-    console.log('hi');
     if (currentlySelected != null) {
-      console.log(currentlySelected.password);
       clipboard.writeText(currentlySelected.password)
     }
   }
@@ -25,18 +23,19 @@ const infoCreated = infoContainer.getElementsByClassName("info-created")[0]
 
 // function to change bg-color of selected card element and change info of info container
 let currentlySelected = {};
+
 function selected(item) {
   infoContainer.style.display = "block";
   this.clear();
   //console.log(item);
   item.classList.add('current-selection');
-  
+
   for (let i = 0; i < divItems.length; i++) {
     if (item.identifier == entries[i].id) {
       currentlySelected = entries[i];
     }
   }
-  //console.log(currentlySelected);
+  console.log(currentlySelected.id);
   infoIcon.src = currentlySelected.icon;
   infoTitle.textContent = currentlySelected.title;
   infoWebsite.textContent = currentlySelected.website;
@@ -45,7 +44,6 @@ function selected(item) {
   infoGroup.textContent = currentlySelected.group;
   infoNotes.textContent = currentlySelected.notes;
   infoCreated.textContent = currentlySelected.dateCreated;
-
 }
 
 function clear() {
@@ -144,24 +142,9 @@ function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
   //console.log(usersjson)
   let users = JSON.parse(usersjson);
-  //let newIndex = users[users.length - 1].id + 1;
-  // let obj = {
-  //   "id": newIndex,
-  //   "title": obj.title,
-  //   "username": obj.username,
-  //   "password": obj.password,
-  //   "website": obj.website,
-  //   "notes": "new entries",
-  //   "icon": "./images/youtube.png",
-  //   "group": "new entry group",
-  //   "dateCreated": timeNow,
-  //   "lastModified": timeNow,
-  // }
   users.push(obj);
   usersjson = JSON.stringify(users);
   fs.writeFileSync("database.json", usersjson, "utf-8");
-  //encrypt()
-  // empty card template and get data from database again to update list
 }
 
 function currentTime() {
@@ -183,19 +166,15 @@ let filePath;
 let fileName;
 async function addImage(spanClassName) {
   filePath = await api.openFile()
-  //console.log(filePath)
   fileName = path.basename(filePath)
-  //console.log(fileName)
   document.getElementsByClassName(spanClassName)[0].innerHTML = fileName;
-  
-  /* run this code on save button
+
+
   // Copy the chosen file to the application's data path
   fs.copyFile(filePath, "./images/" + fileName, (err) => {
-      if (err) throw err;
-      console.log('Image: ' + fileName + ' was stored.');
+    if (err) throw err;
+    console.log('Image: ' + fileName + ' was stored.');
   });
-
-  */
 }
 
 function saveChanges() {
@@ -206,7 +185,7 @@ function saveChanges() {
   let website = document.getElementById('newWebsite').value;
   let notes = document.getElementById('newNotes').value;
   let group = document.getElementById('newGroup').value;
-  let newIndex = entries.length;
+  let newIndex = entries[0].id + 1;
   const newData = {
     "id": newIndex,
     "title": title,
@@ -218,14 +197,14 @@ function saveChanges() {
     "group": group,
     "dateCreated": currentTime(),
   };
-  
-  console.log(newData);
+
   addNew(newData);
   encrypt()
   userCardContainer.replaceChildren();
   retrieveData();
   clearInput();
   closeNew();
+  console.log(entries)
 }
 
 function clearInput() {
@@ -237,12 +216,12 @@ function clearInput() {
   document.getElementById('newGroup').value = '';
   filePath = null;
   document.getElementsByClassName('image-text')[0].innerHTML = '';
-
 }
 
 const popUpNew = document.getElementsByClassName("pop-up-new")[0];
 
 function closeNew() {
+  clearInput();
   popUpNew.style.display = "none";
 }
 
@@ -254,7 +233,6 @@ function openNew() {
 function encrypt() {
   let data = fs.readFileSync("database.json", "utf-8");
   var encrypted = encryptor.encrypt(data);
-  console.log(encrypted)
   fs.writeFileSync("database.json", encrypted, "utf-8");
 }
 
@@ -262,6 +240,157 @@ function encrypt() {
 function decrypt() {
   let encrypted = fs.readFileSync("database.json", "utf-8");
   let decrypted = encryptor.decrypt(encrypted);
-  console.log(decrypted)
   fs.writeFileSync("database.json", decrypted, "utf-8");
 }
+
+function removeEntry() {
+  decrypt();
+
+  let usersjson = fs.readFileSync("database.json", "utf-8");
+  let users = JSON.parse(usersjson);
+  let result = users.filter((user) => {
+    return user.id !== currentlySelected.id
+  })
+  let jsonResult = JSON.stringify(result);
+  fs.writeFileSync("database.json", jsonResult, "utf-8");
+
+  encrypt();
+
+  clear();
+  closeInfo();
+
+  userCardContainer.replaceChildren();
+  retrieveData();
+}
+
+
+function editEntry() {
+  decrypt();
+  let title = document.getElementById('editTitle').value;
+  let username = document.getElementById('editUsername').value;
+  let password = document.getElementById('editPassword').value;
+  let website = document.getElementById('editWebsite').value;
+  let notes = document.getElementById('editNotes').value;
+  let group = document.getElementById('editGroup').value;
+  const editData = {
+    "id": currentlySelected.id,
+    "title": title,
+    "username": username,
+    "password": password,
+    "website": website,
+    "notes": notes,
+    "icon": filePath,
+    "group": group,
+    "dateCreated": currentlySelected.dateCreated,
+  };
+
+  let usersjson = fs.readFileSync("database.json", "utf-8");
+  let users = JSON.parse(usersjson);
+  users[currentlySelected.id] = editData;
+  let jsonresult = JSON.stringify(users);
+  fs.writeFileSync("database.json", jsonresult, "utf-8");
+  closeEdit();
+  closeInfo();
+
+  encrypt();
+  userCardContainer.replaceChildren();
+  retrieveData();
+}
+
+const popUpEdit = document.getElementsByClassName("pop-up-edit")[0];
+
+
+function closeEdit() {
+  popUpEdit.style.display = "none";
+  clearEdit();
+}
+
+function openEdit() {
+  popUpEdit.style.display = "block";
+}
+
+function clearEdit() {
+  document.getElementById('editTitle').value = '';
+  document.getElementById('editUsername').value = '';
+  document.getElementById('editPassword').value = '';
+  document.getElementById('editWebsite').value = '';
+  document.getElementById('editNotes').value = '';
+  document.getElementById('editGroup').value = '';
+  filePath = null;
+  document.getElementsByClassName('image-text-edit')[0].innerHTML = '';
+}
+
+
+const groupSearch = document.getElementById('searchGroup')
+groupSearch.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase()
+  entries.forEach(entry => {
+    const isVisible = entry.group.toLowerCase().includes(value)
+    entry.element.classList.toggle("hide", !isVisible)
+  })
+})
+groupSearch.addEventListener("click", e => {
+  const value = e.target.value.toLowerCase()
+  entries.forEach(entry => {
+    const isVisible = entry.group.toLowerCase().includes(value)
+    entry.element.classList.toggle("hide", !isVisible)
+  })
+})
+groupSearch.addEventListener("focus", e => {
+  const value = e.target.value.toLowerCase()
+  entries.forEach(entry => {
+    const isVisible = entry.group.toLowerCase().includes(value)
+    entry.element.classList.toggle("hide", !isVisible)
+  })
+})
+
+const groupList = document.getElementById('group-list');
+const groupTemplate = document.getElementById('groupTemplate');
+
+function addGroup() {
+  let value = groupSearch.value;
+  if (value !== '') {
+    let newGroup = groupTemplate.content.cloneNode(true).children[0]
+    newGroup.textContent = value;
+    groupList.append(newGroup);
+  }
+}
+
+function groupSelected(groupItem) {
+  console.log(groupItem);
+  groupSearch.value = groupItem.textContent;
+  groupSearch.focus();
+}
+
+function deleteGroup() {
+  let value = groupSearch.value;
+  groupList.removeChild(Array.from(groupList.childNodes).find(v => v.innerHTML == value));
+  groupSearch.value = '';
+  groupSearch.focus();
+}
+
+const popUpHelp = document.getElementById('pop-up-help');
+
+function closeHelp() {
+  popUpHelp.style.display = "none";
+}
+
+function showHelp() {
+  popUpHelp.style.display = "block";
+}
+
+const togglePassword = document.getElementById('togglePassword');
+const stars = document.getElementById('stars');
+
+togglePassword.addEventListener('click', function (e) {
+  
+  infoPassword.classList.toggle('hidden');
+  stars.classList.toggle('hidden');
+
+  // Toggle the eye slash icon
+  if (togglePassword.src.match("./images/view.png")) {
+    togglePassword.src = "./images/hide.png";
+  } else {
+    togglePassword.src = "./images/view.png";
+  }
+});

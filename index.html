@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    
+
     <div class="pop-up-new">
         <div class="new-content">
             <div onclick="closeNew()">
@@ -46,7 +46,7 @@
                     <label for="newNotes" class="placeholder">Notes</label>
                 </div>
 
-                <button id='addImageButton' onclick="addImage('image-text')" class="input-button">Add image</button>
+                <button onclick="addImage('image-text')" class="input-button">Add image</button>
                 <span class="image-span">Image: <span class="image-text"> </span></span>
 
                 <div class="input-container ic2">
@@ -62,12 +62,102 @@
 
     </div>
 
+    <div class="pop-up-edit">
+        <div class="edit-content">
+            <div onclick="closeEdit()">
+                <span class="edit-close-button" aria-hidden="true">&times;</span>
+            </div>
+            <div id="editForm">
+                <div class="input-container ic1">
+                    <input id="editTitle" class="input" type="text" placeholder=" " />
+                    <div class="cut"></div>
+                    <label for="editTitle" class="placeholder">Title</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="editUsername" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="editUsername" class="placeholder">Username</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="editPassword" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="editPassword" class="placeholder">Password</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="editWebsite" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="editWebsite" class="placeholder">Website</label>
+                </div>
+
+                <div class="input-container ic2">
+                    <input id="editNotes" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="editNotes" class="placeholder">Notes</label>
+                </div>
+
+                <button onclick="addImage('image-text-edit')" class="input-button">Add image</button>
+                <span class="image-span">Image: <span class="image-text-edit"> </span></span>
+
+                <div class="input-container ic2">
+                    <input id="editGroup" class="input" type="text" placeholder=" " />
+                    <div class="cut cut-short"></div>
+                    <label for="editGroup" class="placeholder">Group</label>
+                </div>
+            </div>
+
+            <button class="input-button" onclick="editEntry()">Save</button>
+            <button onclick="clearEdit()" class="input-button">Clear</button>
+        </div>
+
+    </div>
+
+
+    <div id="pop-up-help">
+        <div class="new-content overflow">
+            <div onclick="closeHelp()">
+                <span class="new-close-button" aria-hidden="true">&times;</span>
+            </div>
+            <div class="help-title">Help</div>
+            <div class="help-message">You can create new entries by clicking the New Item button.</div>
+            <div class="help-message">You can then click the item you want to see more information about to open a new
+                panel.</div>
+            <div class="help-message">Clicking Ctrl/Command + K will copy the currently selected entry's password into
+                your clipboard.</div>
+            <div class="help-message">To delete an entry, click it then click delete. To edit, do the same and fill
+                information again.</div>
+            <div class="help-message">You can dynamically seach for entries by title or username by using the search bar
+                on top.</div>
+            <div class="help-message">You can add groups by typing in the name of the group you want to add and clicking
+                Add. Clicking on the newly created group will search for that group. Deleting is done by writing the
+                group in the search bar and clicking delete.</div>
+
+        </div>
+    </div>
 
     <div class="main">
 
         <div class="left">
             <div class="logo-image"><img src="./images/icon.png" alt="MiniPass Icon"></div>
-            
+            <div class="group-wrapper">
+                <div class="group-buttons">
+                    <button onclick="addGroup()">Add</button>
+                    <button onclick="deleteGroup()">Delete</button>
+                </div>
+                <div class="group-search">
+                    <input type="search" name="search" id="searchGroup" placeholder="Group search" spellcheck="false">
+                </div>
+                <div id="group-list">
+                    <template id="groupTemplate">
+                        <div class="group-item" onclick="groupSelected(this)"></div>
+                    </template>
+                </div>
+            </div>
+            <div class="help-wrapper">
+                <button class="helpButton" onclick="showHelp()">Help</button>
+            </div>
         </div>
 
         <div class="right">
@@ -97,11 +187,19 @@
                     <div class="info-title-container">
                         <img class="info-icon-pic">
                         <div class="info-title"></div>
+                        <div class="delete-entry"><button onclick="removeEntry()">Delete</button></div>
+                        <div class="delete-entry blue"><button onclick="openEdit()">Edit</button></div>
+
                     </div>
                     <p>Username</p>
                     <div class="info-username info-input"></div>
                     <p>Password</p>
-                    <div class="info-password info-input"></div>
+                    <div class="password-wrapper">
+                        <div class="info-password info-input" type="password"></div>
+                        <div class="info-input hidden" id="stars">********</div>
+                        
+                        <img src="./images/view.png" class="eye" id="togglePassword">
+                    </div>
                     <p>Website</p>
                     <div class="info-website info-input"></div>
                     <p>Group</p>
