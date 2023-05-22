@@ -13,6 +13,10 @@ const API = {
   fs: fs,
   openFile: () => ipcRenderer.invoke("dialog:openFile"),
   saveData: (newData) => ipcRenderer.send("save data to database", newData),
+  // ! Am excited, I believe this would work.
+  // ? problem was in this line
+  // * bug #392 solved
+  // ! yes
   retrieveData: (rows) => ipcRenderer.invoke("db:retrievedata", rows),
   path: path,
   entry: entry,
