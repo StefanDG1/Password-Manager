@@ -639,3 +639,11 @@ p {
     display: none;
 }
 
+#new-eye, #edit-eye {
+    display: inline;
+    position: relative;
+    bottom: 1.75rem;
+    left: 37vw;
+    width: 1rem;
+    height: 1rem;
+}

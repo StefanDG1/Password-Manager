@@ -11,6 +11,8 @@ const ctrlc = api.ctrlc((_event, value) => {
     }
   }
 })
+
+//encrypt()
 const infoContainer = document.getElementsByClassName("info-container")[0];
 const infoIcon = infoContainer.getElementsByClassName("info-icon-pic")[0]
 const infoTitle = infoContainer.getElementsByClassName("info-title")[0]
@@ -27,7 +29,6 @@ let currentlySelected = {};
 function selected(item) {
   infoContainer.style.display = "block";
   this.clear();
-  //console.log(item);
   item.classList.add('current-selection');
 
   for (let i = 0; i < divItems.length; i++) {
@@ -35,7 +36,6 @@ function selected(item) {
       currentlySelected = entries[i];
     }
   }
-  console.log(currentlySelected.id);
   infoIcon.src = currentlySelected.icon;
   infoTitle.textContent = currentlySelected.title;
   infoWebsite.textContent = currentlySelected.website;
@@ -140,7 +140,6 @@ retrieveData();
 
 function addNew(obj) {
   let usersjson = fs.readFileSync("database.json", "utf-8");
-  //console.log(usersjson)
   let users = JSON.parse(usersjson);
   users.push(obj);
   usersjson = JSON.stringify(users);
@@ -185,7 +184,13 @@ function saveChanges() {
   let website = document.getElementById('newWebsite').value;
   let notes = document.getElementById('newNotes').value;
   let group = document.getElementById('newGroup').value;
-  let newIndex = entries[0].id + 1;
+  let newIndex;
+
+  if (entries == null) {
+    newIndex = 0;
+  } else {
+    newIndex = entries[0].id + 1;
+  }
   const newData = {
     "id": newIndex,
     "title": title,
@@ -204,7 +209,6 @@ function saveChanges() {
   retrieveData();
   clearInput();
   closeNew();
-  console.log(entries)
 }
 
 function clearInput() {
@@ -357,7 +361,6 @@ function addGroup() {
 }
 
 function groupSelected(groupItem) {
-  console.log(groupItem);
   groupSearch.value = groupItem.textContent;
   groupSearch.focus();
 }
@@ -383,7 +386,7 @@ const togglePassword = document.getElementById('togglePassword');
 const stars = document.getElementById('stars');
 
 togglePassword.addEventListener('click', function (e) {
-  
+
   infoPassword.classList.toggle('hidden');
   stars.classList.toggle('hidden');
 
@@ -392,5 +395,45 @@ togglePassword.addEventListener('click', function (e) {
     togglePassword.src = "./images/hide.png";
   } else {
     togglePassword.src = "./images/view.png";
+  }
+});
+
+const formEye = document.getElementById('new-eye');
+
+formEye.addEventListener('click', function (e) {
+
+  let newPassword = document.getElementById('newPassword');
+
+  if (newPassword.type == 'password') {
+    newPassword.type = 'text';
+  } else {
+    newPassword.type = 'password';
+  }
+
+  // Toggle the eye slash icon
+  if (formEye.src.match("./images/view.png")) {
+    formEye.src = "./images/hide.png";
+  } else {
+    formEye.src = "./images/view.png";
+  }
+});
+
+const editEye = document.getElementById('edit-eye');
+
+editEye.addEventListener('click', function (e) {
+
+  let newPassword = document.getElementById('editPassword');
+
+  if (newPassword.type == 'password') {
+    newPassword.type = 'text';
+  } else {
+    newPassword.type = 'password';
+  }
+
+  // Toggle the eye slash icon
+  if (editEye.src.match("./images/view.png")) {
+    editEye.src = "./images/hide.png";
+  } else {
+    editEye.src = "./images/view.png";
   }
 });
