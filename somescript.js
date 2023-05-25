@@ -30,9 +30,9 @@ db.all('SELECT * FROM user', [], (err, rows) => {
 
 var insertQuery =
     'INSERT INTO user (username,password,title,iv) VALUES ("' +
-    "Krishnab2432" +
+    "pula" +
     '", "' +
-    "Krishnab@9534" +
+    "andrei@9534" +
     '", "' +
     "youtube" +
     '", "' +

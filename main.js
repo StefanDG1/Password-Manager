@@ -37,90 +37,29 @@ ipcMain.on("send me data", (event, data) => {
       console.log("Error occurred while fetching data: ", err.message);
     } else {
       const secret = "pppppppppppppppppppppppppppppppp";
-      //   console.log("Rows fetched successfully: ", rows);
       for (let index = 0; index < rows.length; index++) {
-        let decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        let decipheredUsername = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].username, "hex")),
-          decipher.final()
-        ]);
-        let username = decipheredUsername.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredPass = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].password, "hex")),
-          decipher.final()
-        ]);
-        let password = decipheredPass.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredTitle = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].title, "hex")),
-          decipher.final()
-        ]);
-        let title = decipheredTitle.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredWebsite = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].website, "hex")),
-          decipher.final()
-        ]);
-        let website = decipheredWebsite.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredGroup = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].group, "hex")),
-          decipher.final()
-        ]);
-        let group = decipheredGroup.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredNotes = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].notes, "hex")),
-          decipher.final()
-        ]);
-        let notes = decipheredNotes.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredDateModified = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].dateModified, "hex")),
-          decipher.final()
-        ]);
-        let dateModified = decipheredDateModified.toString();
-        decipher = crypto.createDecipheriv(
-          "aes-256-ctr",
-          Buffer.from(secret),
-          Buffer.from(rows[index].iv, "hex")
-        )
-        decipheredDateCreated = Buffer.concat([
-          decipher.update(Buffer.from(rows[index].website, "hex")),
-          decipher.final()
-        ]);
-        let dateCreated = decipheredDateCreated.toString();
-        console.log(username, password, title);
+        let decrypt = (string) => {
+          let decipher = crypto.createDecipheriv(
+            "aes-256-ctr",
+            Buffer.from(secret),
+            Buffer.from(rows[index].iv, "hex")
+          )
+          return Buffer.concat([
+            decipher.update(Buffer.from(string, "hex")),
+            decipher.final()
+          ]);
+        }
+        let username = decrypt(rows[index].username).toString();
+        let password = decrypt(rows[index].password).toString();
+        let title = decrypt(rows[index].title).toString();
+        let website = decrypt(rows[index].website).toString();
+        let group = decrypt(rows[index].group).toString();
+        let notes = decrypt(rows[index].notes).toString();
+        let dateModified = decrypt(rows[index].dateModified).toString();
+        let dateCreated = decrypt(rows[index].dateCreated).toString();
+        let uuid = rows[index].uuid;
         rows[index] = {
+          uuid,
           username,
           password,
           title,
@@ -162,7 +101,6 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile(path.join(__dirname, "index.html"));
-  //win.removeMenu();
 };
 
 app.whenReady().then(() => {
@@ -197,10 +135,8 @@ async function handleFileOpen() {
 
 // code for sqlite3 db
 ipcMain.handle("db:savedata", handleSaveData);
-// Do you know what the above line does
-//  I don't know much about SQL
 
-async function handleSaveData(newData) {
+async function handleSaveData(event, newData) {
   console.log("save in mainrenderer " + newData);
   const fs = require("fs");
   const sqlite3 = require("sqlite3").verbose();
@@ -210,81 +146,28 @@ async function handleSaveData(newData) {
     } else {
       console.log("DataBase Connected");
     }
-  });
-
-  // const string = JSON.stringify(newData);
-  //  newData is a JSON file
-  // No dude you need export each at once you can't just pop the whole json, I'll show you what I mean
-  // Oh you fucked up here
-
-
-  const encrypt = (string) => {
-    // okay
+  });const encrypt = (string) => {
+    let encrypt = (string) => {
+      let cipher = crypto.createCipheriv(
+        "aes-256-ctr",
+        Buffer.from(secret),
+        iv
+      );
+      return Buffer.concat([cipher.update(string), cipher.final()]);
+    }
     const secret = "pppppppppppppppppppppppppppppppp";
     const iv = Buffer.from(crypto.randomBytes(16));
-    //  I believe you have to save this 
-    let cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    //  I don't understand how this works
-    const encryptedUsername = Buffer.concat([cipher.update(string.username), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedPassword = Buffer.concat([cipher.update(string.password), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedTitle = Buffer.concat([cipher.update(string.title), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedWebsite = Buffer.concat([cipher.update(string.website), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedGroup = Buffer.concat([cipher.update(string.group), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedNotes = Buffer.concat([cipher.update(string.notes), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedDateCreated = Buffer.concat([cipher.update(string.dateCreated), cipher.final()]);
-    cipher = crypto.createCipheriv(
-      "aes-256-ctr",
-      Buffer.from(secret),
-      iv
-    );
-    const encryptedDateModified = Buffer.concat([cipher.update(string.lastModified), cipher.final()]);
-    console.log(string.password, encryptedPassword)
     return {
       iv: iv.toString("hex"),
-      username: encryptedUsername.toString("hex"),
-      password: encryptedPassword.toString("hex"),
-      title: encryptedTitle.toString("hex"),
-      website: encryptedWebsite.toString("hex"),
-      group: encryptedGroup.toString("hex"),
-      notes: encryptedNotes.toString("hex"),
-      dateCreated: encryptedDateCreated.toString("hex"),
-      dateModified: encryptedDateModified.toString("hex"),
+      username: encrypt(string.username).toString("hex"),
+      password: encrypt(string.password).toString("hex"),
+      title: encrypt(string.title).toString("hex"),
+      website: encrypt(string.website).toString("hex"),
+      group: encrypt(string.group).toString("hex"),
+      notes: encrypt(string.notes).toString("hex"),
+      dateCreated: encrypt(string.dateCreated).toString("hex"),
+      dateModified: encrypt(string.lastModified).toString("hex"),
     };
-    //  I think your iv is exported to the database
   };
 
   const encryptedData = encrypt(newData);
@@ -325,11 +208,12 @@ async function handleSaveData(newData) {
           return;
         }
         console.log("Insertion Done");
+        event.sender.send("Ready for updation")
       });
     }
   });
 
 }
 ipcMain.on("save data to database", (event, data) => {
-  handleSaveData(data);
+  handleSaveData(event, data);
 })
