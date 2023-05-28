@@ -63,7 +63,7 @@ app.whenReady().then(() => {
         }
     ]);
 
-    const ctrlc = globalShortcut.register('CommandOrControl+K', () => {
+    const ctrlc = globalShortcut.register('CommandOrControl+Shift+K', () => {
         console.log('ctrl k is pressed');
         mainWindow.webContents.send('ctrl-c', 1);
     });
@@ -82,9 +82,6 @@ app.whenReady().then(() => {
         }
     })
 });
-
-
-
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
